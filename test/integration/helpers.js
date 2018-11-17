@@ -14,8 +14,7 @@ var tingodb = require('tingodb')({
 
 var Fcash = require('fcash-lib');
 var Fcash_ = {
-  btc: Fcash,
-  bch: require('fcash-lib-cash')
+  btc: Fcash
 };
 
 var Common = require('../../lib/common');

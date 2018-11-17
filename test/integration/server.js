@@ -12,8 +12,7 @@ log.level = 'info';
 
 var Fcash = require('fcash-lib');
 var Fcash_ = {
-  btc: Fcash,
-  bch: require('fcash-lib-cash')
+  btc: Fcash
 };
 
 
