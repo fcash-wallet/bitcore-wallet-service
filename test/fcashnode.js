@@ -116,7 +116,7 @@ describe('Fcash Node Service', function() {
       var service = new Service(options);
       var config = service._getConfiguration();
       config.blockchainExplorerOpts.livenet.should.deep.equal({
-        'apiPrefix': '/insight-api',
+        'apiPrefix': '/fcash-insight-api',
         'provider': 'insight',
         'url': 'http://localhost:3001'
       });
@@ -131,7 +131,7 @@ describe('Fcash Node Service', function() {
       var service = new Service(options);
       var config = service._getConfiguration();
       config.blockchainExplorerOpts.testnet.should.deep.equal({
-        'apiPrefix': '/insight-api',
+        'apiPrefix': '/fcash-insight-api',
         'provider': 'insight',
         'url': 'http://localhost:3001'
       });
