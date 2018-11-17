@@ -15,9 +15,9 @@ BWS can usually be installed within minutes and accommodates all the needed infr
   
 See [fcash-wallet-client](https://github.com/fcash-wallet/fcash-wallet-client) for the *official* client library that communicates to BWS and verifies its response. Also check [fcash-wallet](https://github.com/fcash-wallet/fcash-wallet) for a simple CLI wallet implementation that relies on BWS.
 
-BWS is been used in production enviroments for [Copay Wallet](https://copay.io), [Bitpay App wallet](https://bitpay.com/wallet) and others.  
+BWS is been used in production enviroments for [Copay Wallet](https://copay.io), [Bitpay App wallet](https://www.fcash.cash/wallet) and others.  
 
-More about BWS at https://blog.bitpay.com/announcing-the-fcash-wallet-suite/
+More about BWS at https://blog.fcash.cash/announcing-the-fcash-wallet-suite/
 
 # Getting Started
 ```
@@ -41,7 +41,7 @@ BWS uses by default a Request Rate Limitation to CreateWallet endpoint. If you n
 BWS can be used with PM2 with the provided `app.js` script: 
  
 ```
-  pm2 start app.js --name "bitcoin-wallet-service"
+  pm2 start app.js --name "fcash-wallet-service"
 ```
 
 # Security Considerations

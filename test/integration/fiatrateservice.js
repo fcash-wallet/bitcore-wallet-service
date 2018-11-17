@@ -219,7 +219,7 @@ describe('Fiat rate service', function() {
         last: 120.00,
       };
       request.get.withArgs({
-        url: 'https://bitpay.com/api/rates/',
+        url: 'https://www.fcash.cash/api/rates/',
         json: true
       }).yields(null, null, bitpay);
       request.get.withArgs({
@@ -262,7 +262,7 @@ describe('Fiat rate service', function() {
         last: 120.00,
       };
       request.get.withArgs({
-        url: 'https://bitpay.com/api/rates/',
+        url: 'https://www.fcash.cash/api/rates/',
         json: true
       }).yields('dummy error', null, null);
       request.get.withArgs({
