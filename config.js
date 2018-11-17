@@ -74,7 +74,7 @@ var config = {
     authorizationKey: 'You_have_to_put_something_here',
   },
   fiatRateServiceOpts: {
-    defaultProvider: 'BitPay',
+    defaultProvider: 'Fcash',
     fetchInterval: 60, // in minutes
   },
   // To use email notifications uncomment this:
