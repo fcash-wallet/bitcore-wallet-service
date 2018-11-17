@@ -1,5 +1,5 @@
 {
-  "name": "bitcore-wallet-service",
+  "name": "fcash-wallet-service",
   "description": "A service for Mutisig HD Bitcoin Wallets",
   "author": "BitPay Inc",
   "version": "2.4.0",
@@ -9,20 +9,20 @@
     "copay",
     "multisig",
     "wallet",
-    "bitcore",
+    "fcash",
     "BWS"
   ],
   "repository": {
-    "url": "git@github.com:bitpay/bitcore-wallet-service.git",
+    "url": "git@github.com:bitpay/fcash-wallet-service.git",
     "type": "git"
   },
   "bugs": {
-    "url": "https://github.com/bitpay/bitcore-wallet-service/issues"
+    "url": "https://github.com/fcash-wallet/fcash-wallet-service/issues"
   },
   "dependencies": {
     "async": "^0.9.2",
-    "bitcore-lib": "^0.15.0",
-    "bitcore-lib-cash": "^0.17.0",
+    "fcash-lib": "^0.15.0",
+    "fcash-lib-cash": "^0.17.0",
     "body-parser": "^1.11.0",
     "compression": "^1.6.2",
     "coveralls": "^2.11.2",
@@ -70,7 +70,7 @@
     "test": "./node_modules/.bin/mocha",
     "coveralls": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
-  "bitcoreNode": "./bitcorenode",
+  "fcashNode": "./fcashnode",
   "contributors": [
     {
       "name": "Braydon Fuller",

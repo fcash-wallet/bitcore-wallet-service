@@ -7,8 +7,8 @@ var https = require('https');
 var http = require('http');
 var async = require('async');
 var path = require('path');
-var bitcore = require('bitcore-lib');
-var Networks = bitcore.Networks;
+var fcash = require('fcash-lib');
+var Networks = fcash.Networks;
 var Locker = require('locker-server');
 var BlockchainMonitor = require('../lib/blockchainmonitor');
 var EmailService = require('../lib/emailservice');
@@ -19,11 +19,11 @@ var EventEmitter = require('events').EventEmitter;
 var baseConfig = require('../config');
 
 /**
- * A Bitcore Node Service module
+ * A Fcash Node Service module
  * @param {Object} options
- * @param {Node} options.node - A reference to the Bitcore Node instance
+ * @param {Node} options.node - A reference to the Fcash Node instance
 -* @param {Boolean} options.https - Enable https for this module, defaults to node settings.
- * @param {Number} options.bwsPort - Port for Bitcore Wallet Service API
+ * @param {Number} options.bwsPort - Port for Fcash Wallet Service API
  * @param {Number} options.messageBrokerPort - Port for BWS message broker
  * @param {Number} options.lockerPort - Port for BWS locker port
  */
@@ -84,7 +84,7 @@ Service.prototype._getConfiguration = function() {
     apiPrefix: '/insight-api'
   };
 
-  // A bitcore-node is either livenet or testnet, so we'll pass
+  // A fcash-node is either livenet or testnet, so we'll pass
   // the configuration options to communicate via the local running
   // instance of the insight-api service.
   if (self.node.network === Networks.livenet) {

@@ -5,7 +5,7 @@ var chai = require('chai');
 var sinon = require('sinon');
 var should = chai.should();
 var TxProposal = require('../../lib/model/txproposal');
-var Bitcore = require('bitcore-lib');
+var Fcash = require('fcash-lib');
 
 describe('TxProposal', function() {
   describe('#create', function() {
@@ -31,21 +31,21 @@ describe('TxProposal', function() {
     });
   });
 
-  describe('#getBitcoreTx', function() {
-    it('should create a valid bitcore TX', function() {
+  describe('#getFcashTx', function() {
+    it('should create a valid fcash TX', function() {
       var txp = TxProposal.fromObj(aTXP());
-      var t = txp.getBitcoreTx();
+      var t = txp.getFcashTx();
       should.exist(t);
     });
     it('should order outputs as specified by outputOrder', function() {
       var txp = TxProposal.fromObj(aTXP());
 
       txp.outputOrder = [0, 1, 2];
-      var t = txp.getBitcoreTx();
+      var t = txp.getFcashTx();
       t.getChangeOutput().should.deep.equal(t.outputs[2]);
 
       txp.outputOrder = [2, 0, 1];
-      var t = txp.getBitcoreTx();
+      var t = txp.getFcashTx();
       t.getChangeOutput().should.deep.equal(t.outputs[0]);
     });
   });

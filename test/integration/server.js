@@ -10,10 +10,10 @@ var log = require('npmlog');
 log.debug = log.verbose;
 log.level = 'info';
 
-var Bitcore = require('bitcore-lib');
-var Bitcore_ = {
-  btc: Bitcore,
-  bch: require('bitcore-lib-cash')
+var Fcash = require('fcash-lib');
+var Fcash_ = {
+  btc: Fcash,
+  bch: require('fcash-lib-cash')
 };
 
 
@@ -1862,7 +1862,7 @@ describe('Wallet service', function() {
     };
 
     beforeEach(function() {
-      reqPrivKey = new Bitcore.PrivateKey();
+      reqPrivKey = new Fcash.PrivateKey();
       var requestPubKey = reqPrivKey.toPublicKey();
 
       var xPrivKey = TestData.copayers[0].xPrivKey_44H_0H_0H;
@@ -1924,7 +1924,7 @@ describe('Wallet service', function() {
           should.not.exist(err);
           server.getBalance(res.wallet.walletId, function(err, bal) {
             should.not.exist(err);
-            var privKey = new Bitcore.PrivateKey();
+            var privKey = new Fcash.PrivateKey();
             (getAuthServer(opts.copayerId, privKey, function(err, server2) {
               err.code.should.equal('NOT_AUTHORIZED');
               done();
@@ -3373,7 +3373,7 @@ describe('Wallet service', function() {
               server.createTx(txOpts, function(err, tx) {
                 should.not.exist(err);
                 should.exist(tx);
-                var t = tx.getBitcoreTx();
+                var t = tx.getFcashTx();
                 t.getChangeOutput().script.toAddress().toString().should.equal(txOpts.changeAddress);
                 done();
               });
@@ -3395,7 +3395,7 @@ describe('Wallet service', function() {
                 tx.amount.should.equal(helpers.toSatoshi(0.8));
                 should.not.exist(tx.feePerKb);
                 tx.fee.should.equal(1000e2);
-                var t = tx.getBitcoreTx();
+                var t = tx.getFcashTx();
                 t.getFee().should.equal(1000e2);
                 t.getChangeOutput().satoshis.should.equal(3e8 - 0.8e8 - 1000e2);
                 done();
@@ -3880,7 +3880,7 @@ describe('Wallet service', function() {
             server.createTx(txOpts, function(err, txp) {
               should.not.exist(err);
               should.exist(txp);
-              var t = txp.getBitcoreTx().toObject();
+              var t = txp.getFcashTx().toObject();
               t.outputs.length.should.equal(1);
               t.outputs[0].satoshis.should.equal(max);
               done();
@@ -3905,10 +3905,10 @@ describe('Wallet service', function() {
             });
           });
         });
-        it('should fail gracefully when bitcore throws exception on raw tx creation', function(done) {
+        it('should fail gracefully when fcash throws exception on raw tx creation', function(done) {
           helpers.stubUtxos(server, wallet, 1,  function() {
-            var bitcoreStub = sinon.stub(Bitcore_[coin], 'Transaction');
-            bitcoreStub.throws({
+            var fcashStub = sinon.stub(Fcash_[coin], 'Transaction');
+            fcashStub.throws({
               name: 'dummy',
               message: 'dummy exception'
             });
@@ -3922,7 +3922,7 @@ describe('Wallet service', function() {
             server.createTx(txOpts, function(err, tx) {
               should.exist(err);
               err.message.should.equal('dummy exception');
-              bitcoreStub.restore();
+              fcashStub.restore();
               done();
             });
           });
@@ -4003,9 +4003,9 @@ describe('Wallet service', function() {
             server.createTx(txOpts, function(err, tx) {
               should.not.exist(err);
               should.exist(tx);
-              var bitcoreTx = tx.getBitcoreTx();
-              bitcoreTx.outputs.length.should.equal(1);
-              bitcoreTx.outputs[0].satoshis.should.equal(tx.amount);
+              var fcashTx = tx.getFcashTx();
+              fcashTx.outputs.length.should.equal(1);
+              fcashTx.outputs[0].satoshis.should.equal(tx.amount);
               done();
             });
           });
@@ -4071,7 +4071,7 @@ describe('Wallet service', function() {
           });
         });
         it('should accept a tx proposal signed with a custom key', function(done) {
-          var reqPrivKey = new Bitcore.PrivateKey();
+          var reqPrivKey = new Fcash.PrivateKey();
           var reqPubKey = reqPrivKey.toPublicKey().toString();
 
           var xPrivKey = TestData.copayers[0].xPrivKey_44H_0H_0H;
@@ -4135,7 +4135,7 @@ describe('Wallet service', function() {
               should.not.exist(tx.changeAddress);
               tx.amount.should.equal(3e8 - tx.fee);
 
-              var t = tx.getBitcoreTx();
+              var t = tx.getFcashTx();
               t.getFee().should.equal(tx.fee);
               should.not.exist(t.getChangeOutput());
               t.toObject().inputs.length.should.equal(tx.inputs.length);
@@ -4158,7 +4158,7 @@ describe('Wallet service', function() {
             server.createTx(txOpts, function(err, txp) {
               should.not.exist(err);
               should.exist(txp);
-              var t = txp.getBitcoreTx();
+              var t = txp.getFcashTx();
               var changeOutput = t.getChangeOutput().satoshis;
               var outputs = _.without(_.pluck(t.outputs, 'satoshis'), changeOutput);
 
@@ -4168,7 +4168,7 @@ describe('Wallet service', function() {
                 should.not.exist(err);
                 should.exist(txp);
 
-                t = txp.getBitcoreTx();
+                t = txp.getFcashTx();
                 changeOutput = t.getChangeOutput().satoshis;
                 outputs = _.without(_.pluck(t.outputs, 'satoshis'), changeOutput);
 
@@ -4693,7 +4693,7 @@ describe('Wallet service', function() {
             should.not.exist(err);
             txp.inputs.length.should.equal(1);
             (_.sum(txp.inputs, 'satoshis') - txp.outputs[0].amount - txp.fee).should.equal(0);
-            var changeOutput = txp.getBitcoreTx().getChangeOutput();
+            var changeOutput = txp.getFcashTx().getChangeOutput();
             should.not.exist(changeOutput);
             done();
           });
@@ -5241,7 +5241,7 @@ describe('Wallet service', function() {
       server.createTx(txOpts, function(err, tx) {
         should.not.exist(err);
         should.exist(tx);
-        var t = tx.getBitcoreTx();
+        var t = tx.getFcashTx();
         t.toObject().inputs.length.should.equal(info.inputs.length);
         t.getFee().should.equal(info.fee);
         should.not.exist(t.getChangeOutput());
