@@ -46,24 +46,8 @@ var config = {
       testnet: {
         provider: 'insight',
         url: 'https://test-insight.fcash.cash:443',
-        // Multiple servers (in priority order)
-        // url: ['http://a.b.c', 'https://test-insight.fcash.cash:443'],
       },
-    },
-    bch: {
-      livenet: {
-        provider: 'insight',
-        //url: 'https://cashexplorer.bitcoin.com',
-        url: 'https://bch-insight.fcash.cash:443',
-        addressFormat: 'cashaddr',  // copay, cashaddr, or legacy
-      },
-      testnet: {
-        provider: 'insight',
-        url: 'https://test-bch-insight.fcash.cash:443',
-        addressFormat: 'cashaddr',  // copay, cashaddr, or legacy
-      },
-
-    },
+    }
   },
   pushNotificationsOpts: {
     templatePath: './lib/templates',
